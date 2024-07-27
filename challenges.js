@@ -61,6 +61,12 @@
 
 
 
+
+
+// ----------------------------------------------------
+// ------------------------ARRAYS----------------------
+// ----------------------------------------------------
+
 // CHALLENGE #2 PART 2
 
 /**
@@ -71,14 +77,65 @@ array)
  * 
  **/
 
+// One way to do this  
+// const tip =  function calcTip(bill) {
+//     return bill >= 50 && bill <= 300? bill * 0.15 :
+//     bill * 0.2;
+// }
+// // console.log(tip(100))
 
-const tip =  function calcTip(bill) {
+// const bills = [125, 555, 44];
+
+// const tips = bills.map(bill => tip(bill));
+// const totals = bills.map((bill, i) => bill + tips[i]);
+
+// console.log(tips)
+// console.log(totals)
+
+
+
+// Another Way to do this without map   
+
+const calcTip = function (bill) {
     return bill >= 50 && bill <= 300? bill * 0.15 :
     bill * 0.2;
 }
-console.log(calcTip(100))
 
 const bills = [125, 555, 44];
+const tips = [calcTip(bills[0]), calcTip(bills[1]),
+calcTip(bills[2])]
 
-const tips = bills.map(bill => calcTip(bill));
-const totals = bills.map((bill, i) => bill + tips[i]);
+const totals = [bills[0] + tips[0], bills[1] + tips[1],
+bills[2] + tips[2],
+]
+
+console.log(totals)
+console.log(tips)
+
+
+// ----------------------------------------------------
+// ---------------------ARRAYS ENDED-------------------
+// ----------------------------------------------------
+
+
+// ----------------------------------------------------
+// -----------------------OBJECT-----------------------
+// ----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ----------------------------------------------------
+// --------------------OBJECT ENDED--------------------
+// ----------------------------------------------------

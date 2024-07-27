@@ -1,15 +1,13 @@
 "use strict";
 // ------------------------------------------------
-let hasDriversLicense = false;
-const passtest = true;
+// let hasDriversLicense = false;
+// const passtest = true;
 
-if (passtest) hasDriversLicense = true;
-if (hasDriversLicense) console.log("I can drive");
-
-// ------------------------------------------------
+// if (passtest) hasDriversLicense = true;
+// if (hasDriversLicense) console.log("I can drive");
 
 // ------------------------------------------------
-// functions
+// ----------------------functions-----------------
 // ------------------------------------------------
 
 // function logger() {
@@ -91,6 +89,12 @@ if (hasDriversLicense) console.log("I can drive");
 // }
 // console.log(fruitProcessor(2, 3))
 
+// ------------------------------------------------
+// ----------------------functions-----------------
+// ------------------------------------------------
+
+
+
 // ---------------------------------------------------
 // ----------------------Arrays-----------------------
 // ---------------------------------------------------
@@ -135,36 +139,36 @@ if (hasDriversLicense) console.log("I can drive");
 
 
 
-const friends = ["Michael", "Steven", "Peter"];
-const newLength = friends.push('Jay'); // holds length inside this variable and pushes jay at the and 
+// const friends = ["Michael", "Steven", "Peter"];
+// const newLength = friends.push('Jay'); // holds length inside this variable and pushes jay at the and 
 
-console.log(friends)
-console.log(newLength)
+// console.log(friends)
+// console.log(newLength)
 
-const poppedFriend = friends.pop(); // removes last element and returns it
-console.log(poppedFriend)
-console.log(friends)
-friends.unshift('John'); // adds element at the beginning
-console.log(friends);
+// const poppedFriend = friends.pop(); // removes last element and returns it
+// console.log(poppedFriend)
+// console.log(friends)
+// friends.unshift('John'); // adds element at the beginning
+// console.log(friends);
 
-friends.shift(); // removes first element
-console.log(friends)
+// friends.shift(); // removes first element
+// console.log(friends)
 
-// find index of an element
-const indexOfSteve = friends.indexOf('Steven');
-const indexOfBob = friends.indexOf('Bob');
-friends[friends.length - 1] = 'Grider';
-console.log(indexOfSteve, indexOfBob);
-
-
-console.log(friends.includes('Steven')) // checks the array has it or not true false
-console.log(friends.includes('Grider'))
-console.log(friends.includes('Bob'))
+// // find index of an element
+// const indexOfSteve = friends.indexOf('Steven');
+// const indexOfBob = friends.indexOf('Bob');
+// friends[friends.length - 1] = 'Grider';
+// console.log(indexOfSteve, indexOfBob);
 
 
-if (friends.includes('Grider')){
-  console.log('Grider is your friend')
-}
+// console.log(friends.includes('Steven')) // checks the array has it or not true false
+// console.log(friends.includes('Grider'))
+// console.log(friends.includes('Bob'))
+
+
+// if (friends.includes('Grider')){
+//   console.log('Grider is your friend')
+// }
 
 // ----------------------------------------------------
 // ----------------------Arrays Sorting----------------
@@ -173,23 +177,116 @@ if (friends.includes('Grider')){
 
 // no matter wha's the numbers order
 
-const numbers = [3, 1, 5, 2, 4];
-numbers.sort((a, b) => a - b); // sorts in ascending order
-console.log(numbers);
+// const numbers = [3, 1, 5, 2, 4];
+// numbers.sort((a, b) => a - b); // sorts in ascending order
+// console.log(numbers);
 
-const numbersReverse = [3, 1, 5, 2, 4];
+// const numbersReverse = [3, 1, 5, 2, 4];
 
-numbersReverse.sort((a, b) => b - a); // sorts in descending order
+// numbersReverse.sort((a, b) => b - a); // sorts in descending order
 
-console.log(numbersReverse);
-
-
-const nums = [70, 71.1, 71.4, 71.3, 67, 68, 65, 72];
+// console.log(numbersReverse);
 
 
-nums.sort((a, b) => a - b); // (-) = ascending 1,2,3
-console.log(nums);
+// const nums = [70, 71.1, 71.4, 71.3, 67, 68, 65, 72];
 
-nums.sort((a, b) => b - a); // Sorts in descending order
-console.log(nums);
+
+// nums.sort((a, b) => a - b); // (-) = ascending 1,2,3
+// console.log(nums);
+
+// nums.sort((a, b) => b - a); // Sorts in descending order
+// console.log(nums);
+
+
+// ----------------------------------------------------
+// ---------------------ARRAYS ENDED-------------------
+// ----------------------------------------------------
+
+
+
+// ----------------------------------------------------
+// -----------------------OBJECT-----------------------
+// ----------------------------------------------------
+
+
+// const jonasArray = [
+//   'Jonas',
+//   'Moga',
+//   2024 - 1991,
+//   'teacher',
+//   ['Michael', 'Peter', 'Steven']
+// ];
+
+
+// const jonas =  {
+//   firstName: 'Jonas',
+//   lastName: 'Moga',
+//   age: 2037 - 1991,
+//   job: 'teacher',
+//   friends: ['Michael', 'Peter', 'Steven'],
+// }
+
+// console.log(jonas.lastName)
+// console.log(jonas['lastName'])
+
+// const nameKey = 'Name';
+// console.log(jonas['first' + nameKey])
+// console.log(jonas['last' + nameKey])
+
+
+// const interestedIn = prompt('What do want to know about Jonas? Choose between firstName , lastName, age, job, and friends');
+
+// console.log(jonas[interestedIn]);
+
+// if (jonas[interestedIn]) {
+//   console.log(jonas[interestedIn]);
+// } else {
+//   console.log('Wrong requset! Choose betweeen firstname, lastName, age, job, and friends')
+// }
+
+
+// jonas.location = 'Portugal'; // adds new prop with . operator notation
+
+// jonas['twitter'] = '@jonasman' // adds new prop with [] notation
+// console.log(jonas)
+
+// // ----------------------------------------------------
+// // --------------------OBJECT ENDED--------------------
+// // ----------------------------------------------------
+
+// console.log(`${jonas.firstName} has ${jonas.friends.length} friends, and his best friend is called ${jonas.friends[0]}`);
+
+
+const jonas =  {
+  firstName: 'Jonas',
+  lastName: 'Moga',
+  birhtYear: 1998,
+  age: 2024 - 1998,
+  job: 'teacher',
+  friends: ['Michael', 'Peter', 'Steven'],
+  hasDriversLicense: true,
+  
+  // calcAge: function(birhtYear) {
+  //   return 2024 - birhtYear
+  // }
+  // calcAge: function() {
+  //   console.log(this)
+  //   return 2024 - this.birhtYear
+  // }
+
+  calcAge: function() {
+    this.age = 2024 - this.birhtYear; 
+    return this.age;
+  }
+}
+
+console.log(jonas.age);
+console.log(jonas.age);
+console.log(jonas.age);
+
+// console.log(jonas['calcAge'](1991)); // ways to call calcAge from  jonas object
+
+
+
+// challenge 
 
