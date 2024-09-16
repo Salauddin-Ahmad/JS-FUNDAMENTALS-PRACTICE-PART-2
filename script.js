@@ -288,5 +288,11 @@ console.log(jonas.age);
 
 
 
+
+const {firstName, lastName} = jonas;
+console.log(firstName)
+
 // challenge 
+
+
 
