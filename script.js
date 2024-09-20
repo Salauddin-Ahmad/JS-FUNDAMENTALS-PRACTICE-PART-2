@@ -292,7 +292,27 @@ console.log(jonas.age);
 const {firstName, lastName} = jonas;
 console.log(firstName)
 
-// challenge 
+// Example data: an object representing a user
+const user = {
+  name: "John Doe",
+  address: {
+    street: "123 Main St",
+    city: null, // The city is null
+    postalCode: undefined // The postalCode is undefined
+  }
+};
 
+// Access nested properties safely using Optional Chaining
+// If 'address' or 'street' doesn't exist, it will return undefined instead of throwing an error
+const streetName = user?.address?.street;
+console.log(streetName); // Output: "123 Main St"
 
+// Using Nullish Coalescing to provide a default value when the result is null or undefined
+// '??' only kicks in if the value is null or undefined, unlike '||' which triggers on any falsy value
+const cityName = user?.address?.city ?? "Unknown City";
+console.log(cityName); // Output: "Unknown City" (since city is null)
+
+// Using both Optional Chaining and Nullish Coalescing together
+const postalCode = user?.address?.postalCode ?? "No Postal Code";
+console.log(postalCode); // Output: "No Postal Code" (since postalCode is undefined)
 
