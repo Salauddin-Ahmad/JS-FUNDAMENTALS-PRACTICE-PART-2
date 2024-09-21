@@ -316,3 +316,17 @@ console.log(cityName); // Output: "Unknown City" (since city is null)
 const postalCode = user?.address?.postalCode ?? "No Postal Code";
 console.log(postalCode); // Output: "No Postal Code" (since postalCode is undefined)
 
+
+// Extending the Array prototype by adding a 'sum' method
+Array.prototype.sum = function() {
+  // The 'this' keyword refers to the current array on which the method is called
+  return this.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue; // Accumulate the sum of elements
+  }, 0); // Initial value of accumulator is 0
+};
+
+// Example usage:
+const arr = [1, 2, 3, 4];
+
+// Now, we can directly call the 'sum' method on any array
+console.log(arr.sum()); // Output: 10
