@@ -330,3 +330,21 @@ const arr = [1, 2, 3, 4];
 
 // Now, we can directly call the 'sum' method on any array
 console.log(arr.sum()); // Output: 10
+
+//Broken Code
+for (var i = 0; i < 3; i++) {
+  document.getElementById('btn' + i).addEventListener('click', function() {
+    console.log(i); // always prints 3
+  });
+} 
+
+//Solution 
+for (var i = 0; i < 3; i++) {
+  // Create an IIFE (Immediately Invoked Function Expression) to capture the current 'i'
+  (function(index) {
+    document.getElementById('btn' + index).addEventListener('click', function() {
+      console.log(index); // Now it prints the correct index (0, 1, or 2)
+    });
+  })(i); // Pass 'i' as 'index' to the IIFE
+}
+
