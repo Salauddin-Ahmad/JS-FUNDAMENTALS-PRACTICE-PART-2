@@ -348,3 +348,23 @@ for (var i = 0; i < 3; i++) {
   })(i); // Pass 'i' as 'index' to the IIFE
 }
 
+Input: [-10, 15, -20, 25, -5, 30]
+Output: [15, 25, 30]
+
+// Function to filter out positive numbers from the array
+function getPositiveNumbers(arr) {
+  // Step 1: Use the `filter` method to create a new array with positive numbers
+  return arr.filter(function(num) {
+    // Step 2: Check if the number is positive
+    return num > 0; // Only include numbers greater than 0
+  });
+}
+
+// Example usage
+const numbers = [-10, 15, -20, 25, -5, 30];
+
+// Step 3: Call the function and pass the array of numbers
+const positiveNumbers = getPositiveNumbers(numbers);
+
+// Step 4: Log the result (should only contain positive numbers)
+console.log(positiveNumbers); // Output: [15, 25, 30]
