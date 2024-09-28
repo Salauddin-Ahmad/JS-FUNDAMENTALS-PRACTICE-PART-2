@@ -368,3 +368,15 @@ const positiveNumbers = getPositiveNumbers(numbers);
 
 // Step 4: Log the result (should only contain positive numbers)
 console.log(positiveNumbers); // Output: [15, 25, 30]
+
+//new problem
+
+// Fun trick to flatten an array of arrays using reduce
+const nestedArray = [[1, 2], [3, 4], [5, 6]];
+
+// Using reduce to "flatten" the nested array
+const flattenedArray = nestedArray.reduce((acc, currentArray) => {
+  return acc.concat(currentArray);
+}, []); // Initial value is an empty array
+
+console.log(flattenedArray); // Output: [1, 2, 3, 4, 5, 6]
