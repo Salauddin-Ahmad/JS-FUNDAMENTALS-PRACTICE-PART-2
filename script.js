@@ -380,3 +380,12 @@ const flattenedArray = nestedArray.reduce((acc, currentArray) => {
 }, []); // Initial value is an empty array
 
 console.log(flattenedArray); // Output: [1, 2, 3, 4, 5, 6]
+
+// Array.prototype.map()
+// Fun trick to remove duplicates from an array using map and a Set
+const arrayWithDuplicates = [1, 2, 2, 3, 4, 4, 5];
+
+// Creating a new array with unique values by using a Set
+const uniqueArray = [...new Set(arrayWithDuplicates)];
+
+console.log(uniqueArray); // Output: [1, 2, 3, 4, 5]
