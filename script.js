@@ -389,3 +389,9 @@ const arrayWithDuplicates = [1, 2, 2, 3, 4, 4, 5];
 const uniqueArray = [...new Set(arrayWithDuplicates)];
 
 console.log(uniqueArray); // Output: [1, 2, 3, 4, 5]
+
+// provide elements
+const man = [];
+cars[0]= "Abdur Rahman";
+cars[1]= "Riyaz Khan";
+cars[2]= "Jumman KL";
