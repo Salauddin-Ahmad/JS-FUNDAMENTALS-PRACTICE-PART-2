@@ -395,3 +395,56 @@ const man = [];
 cars[0]= "Abdur Rahman";
 cars[1]= "Riyaz Khan";
 cars[2]= "Jumman KL";
+
+//nullish coa explanation 
+// Let's say we have a user input
+let userInput = null;
+
+// Using OR (||) operator to set a default value
+let inputWithOR = userInput || "Default Input";
+console.log(inputWithOR); // Output: "Default Input"
+
+// The OR (||) operator considers 0, false, "" as falsy, so it will replace them too
+userInput = 0;
+inputWithOR = userInput || "Default Input";
+console.log(inputWithOR); // Output: "Default Input" (0 is falsy)
+
+// Now, using the Nullish Coalescing (??) operator
+let inputWithNullish = userInput ?? "Default Input";
+console.log(inputWithNullish); // Output: 0 (because 0 is not null or undefined)
+
+// Another example with undefined
+let anotherInput;
+let result = anotherInput ?? "No input provided";
+console.log(result); // Output: "No input provided"
+
+// But if the variable has a value, it won't use the default
+anotherInput = "Hello!";
+result = anotherInput ?? "No input provided";
+console.log(result); // Output: "Hello!"
+
+
+// curriying function 
+// A normal function that adds three numbers
+function addThreeNumbers(a, b, c) {
+  return a + b + c;
+}
+
+console.log(addThreeNumbers(1, 2, 3)); // Output: 6
+
+// Curried version of the same function
+function curriedAdd(a) {
+  return function(b) {
+    return function(c) {
+      return a + b + c;
+    };
+  };
+}
+
+// Calling the curried function step by step
+console.log(curriedAdd(1)(2)(3)); // Output: 6
+
+// You can also store intermediate steps
+const addOne = curriedAdd(1);
+const addOneAndTwo = addOne(2);
+console.log(addOneAndTwo(3)); // Output: 6
