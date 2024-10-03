@@ -363,3 +363,163 @@ for(let i = jonas.length - 1; i >= 0; ) {
 // ----------------------------------------------------
 // ------------------LOOPS ENDS------------------------
 // ----------------------------------------------------
+
+const {firstName, lastName} = jonas;
+console.log(firstName)
+
+// Example data: an object representing a user
+const user = {
+  name: "John Doe",
+  address: {
+    street: "123 Main St",
+    city: null, // The city is null
+    postalCode: undefined // The postalCode is undefined
+  }
+};
+
+// Access nested properties safely using Optional Chaining
+// If 'address' or 'street' doesn't exist, it will return undefined instead of throwing an error
+const streetName = user?.address?.street;
+console.log(streetName); // Output: "123 Main St"
+
+// Using Nullish Coalescing to provide a default value when the result is null or undefined
+// '??' only kicks in if the value is null or undefined, unlike '||' which triggers on any falsy value
+const cityName = user?.address?.city ?? "Unknown City";
+console.log(cityName); // Output: "Unknown City" (since city is null)
+
+// Using both Optional Chaining and Nullish Coalescing together
+const postalCode = user?.address?.postalCode ?? "No Postal Code";
+console.log(postalCode); // Output: "No Postal Code" (since postalCode is undefined)
+
+
+// Extending the Array prototype by adding a 'sum' method
+Array.prototype.sum = function() {
+  // The 'this' keyword refers to the current array on which the method is called
+  return this.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue; // Accumulate the sum of elements
+  }, 0); // Initial value of accumulator is 0
+};
+
+// Example usage:
+const arr = [1, 2, 3, 4];
+
+// Now, we can directly call the 'sum' method on any array
+console.log(arr.sum()); // Output: 10
+
+//Broken Code
+for (var i = 0; i < 3; i++) {
+  document.getElementById('btn' + i).addEventListener('click', function() {
+    console.log(i); // always prints 3
+  });
+} 
+
+//Solution 
+for (var i = 0; i < 3; i++) {
+  // Create an IIFE (Immediately Invoked Function Expression) to capture the current 'i'
+  (function(index) {
+    document.getElementById('btn' + index).addEventListener('click', function() {
+      console.log(index); // Now it prints the correct index (0, 1, or 2)
+    });
+  })(i); // Pass 'i' as 'index' to the IIFE
+}
+
+Input: [-10, 15, -20, 25, -5, 30]
+Output: [15, 25, 30]
+
+// Function to filter out positive numbers from the array
+function getPositiveNumbers(arr) {
+  // Step 1: Use the `filter` method to create a new array with positive numbers
+  return arr.filter(function(num) {
+    // Step 2: Check if the number is positive
+    return num > 0; // Only include numbers greater than 0
+  });
+}
+
+// Example usage
+const numbers = [-10, 15, -20, 25, -5, 30];
+
+// Step 3: Call the function and pass the array of numbers
+const positiveNumbers = getPositiveNumbers(numbers);
+
+// Step 4: Log the result (should only contain positive numbers)
+console.log(positiveNumbers); // Output: [15, 25, 30]
+
+//new problem
+
+// Fun trick to flatten an array of arrays using reduce
+const nestedArray = [[1, 2], [3, 4], [5, 6]];
+
+// Using reduce to "flatten" the nested array
+const flattenedArray = nestedArray.reduce((acc, currentArray) => {
+  return acc.concat(currentArray);
+}, []); // Initial value is an empty array
+
+console.log(flattenedArray); // Output: [1, 2, 3, 4, 5, 6]
+
+// Array.prototype.map()
+// Fun trick to remove duplicates from an array using map and a Set
+const arrayWithDuplicates = [1, 2, 2, 3, 4, 4, 5];
+
+// Creating a new array with unique values by using a Set
+const uniqueArray = [...new Set(arrayWithDuplicates)];
+
+console.log(uniqueArray); // Output: [1, 2, 3, 4, 5]
+
+// provide elements
+const man = [];
+cars[0]= "Abdur Rahman";
+cars[1]= "Riyaz Khan";
+cars[2]= "Jumman KL";
+
+//nullish coa explanation 
+// Let's say we have a user input
+let userInput = null;
+
+// Using OR (||) operator to set a default value
+let inputWithOR = userInput || "Default Input";
+console.log(inputWithOR); // Output: "Default Input"
+
+// The OR (||) operator considers 0, false, "" as falsy, so it will replace them too
+userInput = 0;
+inputWithOR = userInput || "Default Input";
+console.log(inputWithOR); // Output: "Default Input" (0 is falsy)
+
+// Now, using the Nullish Coalescing (??) operator
+let inputWithNullish = userInput ?? "Default Input";
+console.log(inputWithNullish); // Output: 0 (because 0 is not null or undefined)
+
+// Another example with undefined
+let anotherInput;
+let result = anotherInput ?? "No input provided";
+console.log(result); // Output: "No input provided"
+
+// But if the variable has a value, it won't use the default
+anotherInput = "Hello!";
+result = anotherInput ?? "No input provided";
+console.log(result); // Output: "Hello!"
+
+
+// curriying function 
+// A normal function that adds three numbers
+function addThreeNumbers(a, b, c) {
+  return a + b + c;
+}
+
+console.log(addThreeNumbers(1, 2, 3)); // Output: 6
+
+// Curried version of the same function
+function curriedAdd(a) {
+  return function(b) {
+    return function(c) {
+      return a + b + c;
+    };
+  };
+}
+
+// Calling the curried function step by step
+console.log(curriedAdd(1)(2)(3)); // Output: 6
+
+// You can also store intermediate steps
+const addOne = curriedAdd(1);
+const addOneAndTwo = addOne(2);
+console.log(addOneAndTwo(3)); // Output: 6
