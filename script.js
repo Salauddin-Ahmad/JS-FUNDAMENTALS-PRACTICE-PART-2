@@ -257,14 +257,14 @@
 // console.log(`${jonas.firstName} has ${jonas.friends.length} friends, and his best friend is called ${jonas.friends[0]}`);
 
 
-const jonas =  {
-  firstName: 'Jonas',
-  lastName: 'Moga',
-  birhtYear: 1998,
-  age: 2024 - 1998,
-  job: 'teacher',
-  friends: ['Michael', 'Peter', 'Steven'],
-  hasDriversLicense: true,
+// const jonas =  {
+//   firstName: 'Jonas',
+//   lastName: 'Moga',
+//   birhtYear: 1998,
+//   age: 2024 - 1998,
+//   job: 'teacher',
+//   friends: ['Michael', 'Peter', 'Steven'],
+//   hasDriversLicense: true,
   
   // calcAge: function(birhtYear) {
   //   return 2024 - birhtYear
@@ -274,19 +274,92 @@ const jonas =  {
   //   return 2024 - this.birhtYear
   // }
 
-  calcAge: function() {
-    this.age = 2024 - this.birhtYear; 
-    return this.age;
-  }
-}
+//   calcAge: function() {
+//     this.age = 2024 - this.birhtYear; 
+//     return this.age;
+//   },
+//   getSummary: function() {
+//     return `${this.firstName} is a ${this.calcAge} year old ${this.job}. He has ${this.hasDriversLicense ? 'a' : 'no'} driver's license.`;
+//   },
+// }
 
-console.log(jonas.age);
-console.log(jonas.age);
-console.log(jonas.age);
+// console.log(jonas.age);
+// console.log(jonas.age);
+// console.log(jonas.age);
 
 // console.log(jonas['calcAge'](1991)); // ways to call calcAge from  jonas object
 
 
 
-// challenge 
+// ----------------------------------------------------
+// --------------------LOOPS---------------------------
+// ----------------------------------------------------
 
+// for loop keeps running while condition is true
+// for (let rep = 1; rep <= 10; rep++){
+//   console.log(`Lifting weights repetition ${rep}`);
+// }
+
+// const jonasArray =  [
+//    'Jonas',
+//    'Moga',
+//    1998,
+//    2024 - 1998,
+//    'teacher',
+//    ['Michael', 'Peter', 'Steven'],
+//    true
+// ]
+
+// const types = []
+// for (let i = 0; i < jonasArray.length ; i++) {
+//   console.log(jonasArray[i], typeof jonasArray[i]);
+
+// // filling empty array
+// // types[i] = typeof jonasArray[i];
+//   types.push
+// }
+// console.log(types)
+
+// const years = [1991, 2007, 1969, 2000];
+// const ages = [];
+// for (let i = 0; i < years.length; i++) {
+//   ages.push(2037 - years[i]);
+// }
+// console.log(ages);
+
+// continue and break
+
+// console.log(`-------STRIGS ONLY----------`)
+// for (let i = 0; i < jonasArray.length ; i++) {
+//   if(typeof jonasArray[i] !== 'string') continue;
+//   console.log(jonasArray[i], typeof jonasArray[i]);
+// }
+
+// console.log(`-------BREAK WITH NUMBER--------`)
+// for (let i = 0; i < jonasArray.length ; i++) {
+//   if(typeof jonasArray[i] === 'number') break;
+//   console.log(jonasArray[i], typeof jonasArray[i]);
+// }
+
+
+const jonas =  [
+  'Jonas',
+  'Moga',
+  1998,
+  2024 - 1998,
+  'teacher',
+  ['Michael', 'Peter', 'Steven'],
+  true
+]
+
+for(let i = jonas.length - 1; i >= 0; ) {
+}
+
+
+
+
+
+
+// ----------------------------------------------------
+// ------------------LOOPS ENDS------------------------
+// ----------------------------------------------------
