@@ -16,12 +16,9 @@
 // console.log('123' < 57)
 // copied from termux terminal
 
-> console.log(Boolean('123' < 57));
-false
-undefined
-> console.log(Boolean('12' < 57));
-true
-undefined
->
+ console.log(Boolean('123' < 57));
+ //false //undefined
+ console.log(Boolean('12' < 57));
+//true //undefined
 
 // console.log(5 + 6 + '4' + 9 - 4 - 2)
