@@ -4,20 +4,26 @@
 --------------------------------------------------------------
 
 
-function solveMeFirst(a: number, b: number): number {
-    const sum = a + b
-    return sum
-} 
+function solveMefirst(a: number, b: number): number {
 
-
-function main(){
-   const a = parseInt(readline());
-   const b = parseInt(readline());
+   if (1 <= a && b <= 1000){
+    return a + b;
+   }
+    throw new Error('values must be within 1 to 1000')
    
-   const sum =  solveMeFirst(a, b);
+}
 
-   console.log(solveMeFirst)
 
+
+
+
+function main() {
+    const  a = parseInt(readLine());
+    const  b = parseInt(readLine());
+    
+    
+    const sum = solveMefirst(a, b)
+    console.log(sum)
 }
 
 
