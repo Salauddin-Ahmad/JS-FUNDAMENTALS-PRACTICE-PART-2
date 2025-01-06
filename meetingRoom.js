@@ -43,17 +43,16 @@ const optimalSchedule = scheduleMeetings(meetings);
 
 // Output the result
 console.log("Optimal Meeting Schedule:", optimalSchedule);
-// Explanation of the Algorithm
-// Sorting by End Time:
 
+
+// Sorting by End Time:
 // Meetings are sorted based on their end time. This ensures that we always consider the earliest finishing meetings first, which maximizes the remaining time for other meetings.
 // Iterating and Selecting Meetings:
-
 // For each meeting in the sorted array:
 // If its start time is greater than or equal to the lastEndTime, it's added to the schedule.
 // Update lastEndTime to the current meeting's end time.
-// Greedy Approach:
 
+// Greedy Approach:
 // This algorithm uses a greedy strategy by always picking the meeting that ends earliest while maintaining non-overlapping conditions.
 // Time Complexity
 // Sorting: 
