@@ -1,0 +1,44 @@
+// Function to generate a random HSL color
+function generateRandomHSL() {
+  const hue = Math.floor(Math.random() * 360); // Random hue between 0 and 360
+  const saturation = Math.floor(Math.random() * 41) + 40; // Random saturation between 40% and 80%
+  const lightness = Math.floor(Math.random() * 21) + 40; // Random lightness between 40% and 60%
+  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+}
+
+// Function to generate the complementary color of a given HSL color
+function generateComplementaryColor(hslColor) {
+  const hslParts = hslColor.match(/hsl\((\d+), (\d+)%, (\d+)%\)/);
+  let hue = parseInt(hslParts[1], 10);
+  
+  // Complementary color is 180 degrees apart in the color wheel
+  hue = (hue + 180) % 360;
+
+  return `hsl(${hue}, ${hslParts[2]}%, ${hslParts[3]}%)`;
+}
+
+// Function to generate a palette of complementary colors
+function generateColorPalette() {
+  const baseColor = generateRandomHSL();
+  const complementaryColor = generateComplementaryColor(baseColor);
+
+  return {
+    baseColor,
+    complementaryColor
+  };
+}
+
+// Example usage
+const palette = generateColorPalette();
+console.log("Base Color:", palette.baseColor);
+console.log("Complementary Color:", palette.complementaryColor);
+
+// Displaying the colors in the browser (if desired)
+document.body.innerHTML = `
+  <div style="background-color: ${palette.baseColor}; padding: 50px; text-align: center; color: white;">
+    Base Color: ${palette.baseColor}
+  </div>
+  <div style="background-color: ${palette.complementaryColor}; padding: 50px; text-align: center; color: white;">
+    Complementary Color: ${palette.complementaryColor}
+  </div>
+`;
