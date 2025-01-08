@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Generator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            border: 1px solid white;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="mazeCanvas" width="600" height="600"></canvas>
+    <script>
+        const canvas = document.getElementById('mazeCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const cols = 30;
+        const rows = 30;
+        const cellSize = 20;
+
+        const grid = [];
+        const stack = [];
+        let current;
+
+        // Directions for moving in the grid
+        const directions = [
+            { x: 0, y: -1 }, // Up
+            { x: 1, y: 0 },  // Right
+            { x: 0, y: 1 },  // Down
+            { x: -1, y: 0 }  // Left
+        ];
+
+        // Initialize the grid
+        for (let y = 0; y < rows; y++) {
+            const row = [];
+            for (let x = 0; x < cols; x++) {
+                row.push({ visited: false, walls: { top: true, right: true, bottom: true, left: true } });
+            }
+            grid.push(row);
+        }
+
+        // Get random neighbors
+        function getRandomNeighbors(cell) {
+            const neighbors = [];
+            directions.forEach(dir => {
+                const newX = cell.x + dir.x;
+                const newY = cell.y + dir.y;
+                if (newX >= 0 && newX < cols && newY >= 0 && newY < rows && !grid[newY][newX].visited) {
+                    neighbors.push({ x: newX, y: newY, direction: dir });
+                }
+            });
+            return neighbors;
+        }
+
+        // Carve the maze using DFS
+        function carveMaze() {
+            current.visited = true;
+            const neighbors = getRandomNeighbors(current);
+
+            if (neighbors.length > 0) {
+                stack.push(current);
+                const next = neighbors[Math.floor(Math.random() * neighbors.length)];
+
+                // Remove walls between current and next
+                if (next.x > current.x) {
+                    current.walls.right = false;
+                    grid[next.y][next.x].walls.left = false;
+                } else if (next.x < current.x) {
+                    current.walls.left = false;
+                    grid[next.y][next.x].walls.right = false;
+                } else if (next.y > current.y) {
+                    current.walls.bottom = false;
+                    grid[next.y][next.x].walls.top = false;
+                } else if (next.y < current.y) {
+                    current.walls.top = false;
+                    grid[next.y][next.x].walls.bottom = false;
+                }
+
+                current = next;
+            } else if (stack.length > 0) {
+                current = stack.pop();
+            }
+
+            if (stack.length > 0 || neighbors.length > 0) {
+                requestAnimationFrame(carveMaze);
+            } else {
+                drawMaze();
+            }
+        }
+
+        // Draw the maze
+        function drawMaze() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            grid.forEach((row, y) => {
+                row.forEach((cell, x) => {
+                    const posX = x * cellSize;
+                    const posY = y * cellSize;
+                    ctx.fillStyle = cell.visited ? '#444' : '#222';
+                    ctx.fillRect(posX, posY, cellSize, cellSize);
+                    ctx.strokeStyle = '#fff';
+                    ctx.lineWidth = 2;
+
+                    if (cell.walls.top) ctx.strokeRect(posX, posY, cellSize, 0);
+                    if (cell.walls.right) ctx.strokeRect(posX + cellSize, posY, 0, cellSize);
+                    if (cell.walls.bottom
