@@ -1,0 +1,33 @@
+// Function to multiply two large numbers using Karatsuba multiplication
+function karatsuba(x, y) {
+    const numLength = Math.max(x.toString().length, y.toString().length);
+    
+    // Base case: when the numbers are small enough to multiply directly
+    if (numLength <= 1) {
+        return x * y;
+    }
+
+    const halfLength = Math.floor(numLength / 2);
+
+    // Split the numbers into two halves
+    const highX = Math.floor(x / Math.pow(10, halfLength));
+    const lowX = x % Math.pow(10, halfLength);
+    const highY = Math.floor(y / Math.pow(10, halfLength));
+    const lowY = y % Math.pow(10, halfLength);
+
+    // 3 recursive calls to Karatsuba's formula
+    const z0 = karatsuba(lowX, lowY); // Multiply lower halves
+    const z1 = karatsuba(lowX + highX, lowY + highY); // Multiply sums of the halves
+    const z2 = karatsuba(highX, highY); // Multiply higher halves
+
+    // Combine the results using Karatsuba's formula
+    const result = z2 * Math.pow(10, 2 * halfLength) + (z1 - z2 - z0) * Math.pow(10, halfLength) + z0;
+    
+    return result;
+}
+
+// Example Usage
+const largeNumber1 = 1234567890123456;
+const largeNumber2 = 9876543210987654;
+
+console.log(karatsuba(largeNumber1, largeNumber2));
