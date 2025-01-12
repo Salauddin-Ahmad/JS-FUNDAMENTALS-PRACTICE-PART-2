@@ -1,0 +1,120 @@
+// Define an interface for Address
+interface Address {
+  street: string;
+  city: string;
+  postalCode: string;
+}
+
+// Define an interface for Employee
+interface Employee {
+  id: number;
+  name: string;
+  role: string;
+  address: Address;
+}
+
+// Define an interface for the methods used in managing employees
+interface EmployeeManagement {
+  addEmployee(employee: Employee): void;
+  getEmployee(id: number): Employee | undefined;
+  listEmployees(): Employee[];
+}
+
+// Create a class representing a Company, using static methods
+class Company implements EmployeeManagement {
+  private static instance: Company | null = null;
+  private employees: Employee[] = [];
+
+  private constructor() {}
+
+  // Static method to ensure there is only one instance of Company
+  public static getInstance(): Company {
+    if (Company.instance === null) {
+      Company.instance = new Company();
+    }
+    return Company.instance;
+  }
+
+  // Method to add an employee
+  addEmployee(employee: Employee): void {
+    this.employees.push(employee);
+  }
+
+  // Method to get an employee by ID
+  getEmployee(id: number): Employee | undefined {
+    return this.employees.find(employee => employee.id === id);
+  }
+
+  // Method to list all employees
+  listEmployees(): Employee[] {
+    return this.employees;
+  }
+
+  // Method to find employees by role using generics
+  findEmployeesByRole<T extends Employee>(role: string): T[] {
+    return this.employees.filter(employee => employee.role === role) as T[];
+  }
+}
+
+// Define a class for Manager that extends Employee
+class Manager implements Employee {
+  id: number;
+  name: string;
+  role: string = 'Manager';
+  address: Address;
+
+  constructor(id: number, name: string, address: Address) {
+    this.id = id;
+    this.name = name;
+    this.address = address;
+  }
+
+  // Method to return Manager-specific information
+  getManagerDetails(): string {
+    return `${this.name} is a Manager located at ${this.address.city}, ${this.address.street}.`;
+  }
+}
+
+// Define a class for Developer that extends Employee
+class Developer implements Employee {
+  id: number;
+  name: string;
+  role: string = 'Developer';
+  address: Address;
+
+  constructor(id: number, name: string, address: Address) {
+    this.id = id;
+    this.name = name;
+    this.address = address;
+  }
+
+  // Method to return Developer-specific information
+  getDeveloperDetails(): string {
+    return `${this.name} is a Developer located at ${this.address.city}, ${this.address.street}.`;
+  }
+}
+
+// Create an instance of the Company class
+const company = Company.getInstance();
+
+// Create some employee objects
+const manager: Manager = new Manager(1, 'Alice Johnson', { street: '123 Main St', city: 'New York', postalCode: '10001' });
+const developer: Developer = new Developer(2, 'Bob Smith', { street: '456 Oak St', city: 'San Francisco', postalCode: '94105' });
+
+// Add employees to the company
+company.addEmployee(manager);
+company.addEmployee(developer);
+
+// List all employees
+console.log(company.listEmployees());
+
+// Get a specific employee by ID
+console.log(company.getEmployee(1));
+
+// Find employees by role using generics
+const managers = company.findEmployeesByRole<Manager>('Manager');
+console.log(managers);
+
+// Display individual details for managers and developers
+console.log(manager.getManagerDetails());
+console.log(developer.getDeveloperDetails());
