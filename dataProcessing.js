@@ -1,40 +1,46 @@
 class DataProcessor {
     constructor(config = {}) {
+        // Initialize config with default values and override with provided ones
         this.config = {
             batchSize: config.batchSize || 1000,
-            cacheEnabled: config.cacheEnabled || true,
-            cacheDuration: config.cacheDuration || 3600000, // 1 hour in ms
+            cacheEnabled: config.cacheEnabled !== false, // default true
+            cacheDuration: config.cacheDuration || 3600000, // default 1 hour
             ...config
         };
-        
-        // Initialize LRU cache
-        this.cache = new Map();
-        this.cacheTimestamps = new Map();
+
+        // Initialize cache structures
+        this.cache = new Map();                // Store cached results
+        this.cacheTimestamps = new Map();      // Track timestamps for each cache entry
     }
 
+    /**
+     * Main method to process the entire dataset in batches
+     */
     async processDataBatch(data) {
         try {
-            // Clean expired cache entries
+            // Clean up any expired cache entries
             this._cleanCache();
-            
-            // Break data into batches for better performance
+
+            // Split large dataset into smaller batches
             const batches = this._createBatches(data);
             const results = [];
-            
-            // Process batches with progress tracking
+
             let processedCount = 0;
+
+            // Process each batch sequentially
             for (const batch of batches) {
                 const batchResult = await this._processBatch(batch);
                 results.push(...batchResult);
                 processedCount += batch.length;
-                
-                // Report progress
+
+                // Optionally report progress via callback
                 if (this.config.onProgress) {
                     const progress = (processedCount / data.length) * 100;
                     this.config.onProgress(progress);
                 }
             }
-            
+
+            // Aggregate and return final result
             return this._aggregateResults(results);
         } catch (error) {
             console.error('Error processing data:', error);
@@ -42,6 +48,9 @@ class DataProcessor {
         }
     }
 
+    /**
+     * Splits input data into batches of configured size
+     */
     _createBatches(data) {
         const batches = [];
         for (let i = 0; i < data.length; i += this.config.batchSize) {
@@ -50,72 +59,90 @@ class DataProcessor {
         return batches;
     }
 
+    /**
+     * Processes a single batch by processing each item in parallel
+     */
     async _processBatch(batch) {
         const results = await Promise.all(
             batch.map(item => this._processItem(item))
         );
+        // Filter out null values (e.g., from cache expiration)
         return results.filter(result => result !== null);
     }
 
+    /**
+     * Processes a single item with caching support
+     */
     async _processItem(item) {
         const cacheKey = this._generateCacheKey(item);
-        
-        // Try to get from cache
+
+        // Return cached result if available and valid
         if (this.config.cacheEnabled) {
             const cachedResult = this._getFromCache(cacheKey);
             if (cachedResult) return cachedResult;
         }
-        
-        // Process item
+
+        // Compute the result if not cached
         const result = await this._computeResult(item);
-        
-        // Cache result
+
+        // Store in cache for future use
         if (this.config.cacheEnabled) {
             this._addToCache(cacheKey, result);
         }
-        
+
         return result;
     }
 
+    /**
+     * Simulates computation or transformation logic for an item
+     * Replace this with your actual business logic
+     */
     async _computeResult(item) {
-        // Example computation - replace with actual processing logic
         return new Promise(resolve => {
             const result = {
                 id: item.id,
-                value: item.value * 2,
+                value: item.value * 2,   // Sample transformation
                 processed: true,
                 timestamp: Date.now()
             };
-            
-            // Simulate async processing
+
+            // Simulate async work
             setTimeout(() => resolve(result), 10);
         });
     }
 
+    /**
+     * Generates a unique cache key for a given item
+     */
     _generateCacheKey(item) {
-        // Generate unique cache key based on item properties
         return `${item.id}-${JSON.stringify(item.value)}`;
     }
 
+    /**
+     * Retrieves a cached result if it hasn't expired
+     */
     _getFromCache(key) {
         if (!this.cache.has(key)) return null;
-        
+
         const timestamp = this.cacheTimestamps.get(key);
         if (Date.now() - timestamp > this.config.cacheDuration) {
-            // Cache expired
+            // Cache expired - remove entry
             this.cache.delete(key);
             this.cacheTimestamps.delete(key);
             return null;
         }
-        
+
         return this.cache.get(key);
     }
 
+    /**
+     * Adds an entry to the cache and tracks its timestamp
+     */
     _addToCache(key, value) {
         this.cache.set(key, value);
         this.cacheTimestamps.set(key, Date.now());
-        
-        // Implement LRU eviction if cache gets too large
+
+        // If cache exceeds limit, evict the oldest entry (LRU logic)
         if (this.cache.size > this.config.maxCacheSize) {
             const oldestKey = this.cacheTimestamps.entries().next().value[0];
             this.cache.delete(oldestKey);
@@ -123,6 +150,9 @@ class DataProcessor {
         }
     }
 
+    /**
+     * Periodically removes expired cache entries
+     */
     _cleanCache() {
         const now = Date.now();
         for (const [key, timestamp] of this.cacheTimestamps) {
@@ -133,8 +163,10 @@ class DataProcessor {
         }
     }
 
+    /**
+     * Aggregates final results: total count, summary stats, etc.
+     */
     _aggregateResults(results) {
-        // Example aggregation - customize based on needs
         return {
             items: results,
             totalCount: results.length,
@@ -147,22 +179,22 @@ class DataProcessor {
     }
 }
 
-// Example usage:
+// Example usage
 const processor = new DataProcessor({
-    batchSize: 500,
-    cacheEnabled: true,
-    cacheDuration: 3600000, // 1 hour
-    maxCacheSize: 1000,
+    batchSize: 500,                          // Size of each processing batch
+    cacheEnabled: true,                      // Enable caching
+    cacheDuration: 3600000,                  // Cache duration: 1 hour
+    maxCacheSize: 1000,                      // Max items in cache before eviction
     onProgress: (progress) => console.log(`Processing: ${progress.toFixed(1)}%`)
 });
 
-// Sample data
+// Generate sample input data
 const data = Array.from({ length: 10000 }, (_, i) => ({
     id: i,
     value: Math.random() * 100
 }));
 
-// Process data
+// Process the data and handle result
 processor.processDataBatch(data)
     .then(result => console.log('Processing complete:', result))
     .catch(error => console.error('Processing failed:', error));
